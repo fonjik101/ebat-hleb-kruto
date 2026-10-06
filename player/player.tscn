@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://cj34ax3xqx8yq"]
+
+[ext_resource type="Script" uid="uid://comxu72fnpn5g" path="res://player/player_control.gd" id="1_rkbax"]
+[ext_resource type="Texture2D" uid="uid://dn503twmmoj2k" path="res://player/interaction_cursor.png" id="2_g1dw6"]
+[ext_resource type="Texture2D" uid="uid://b6ceepyydv8rc" path="res://player/idle_cursor.png" id="3_yw30f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7i7bt"]
+radius = 0.35253906
+
+[node name="Player" type="CharacterBody3D" unique_id=794518661 groups=["Player"]]
+collision_layer = 3
+script = ExtResource("1_rkbax")
+walk_speed = 3.0
+crouch_speed = 1.5
+sprint_speed = 6.0
+unlimited_sprint = false
+can_slide = false
+
+[node name="Body_Collision" type="CollisionShape3D" parent="." unique_id=1820892513]
+shape = SubResource("CapsuleShape3D_7i7bt")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="Stand_Check" type="RayCast3D" parent="." unique_id=305201724]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 1, 0)
+
+[node name="Camera_Pivot" type="Node3D" parent="." unique_id=377857009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Player_Camera" type="Camera3D" parent="Camera_Pivot" unique_id=1546616848]
+fov = 110.0
+
+[node name="Hit_Ray" type="RayCast3D" parent="Camera_Pivot/Player_Camera" unique_id=1291144089]
+target_position = Vector3(0, 0, -1)
+
+[node name="UI" type="Control" parent="." unique_id=978617342]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Cursor" type="Control" parent="UI" unique_id=1740127376]
+modulate = Color(1, 1, 1, 0.5568628)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Interactable_Cursor" type="TextureRect" parent="UI/Cursor" unique_id=471755937]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("2_g1dw6")
+
+[node name="Idle_Cursor" type="TextureRect" parent="UI/Cursor" unique_id=105572960]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_yw30f")
+
+[node name="Position_Label" type="Label" parent="UI" unique_id=1076271937]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "X: 69
+Y: 1337
+Z: 69"
+
+[node name="Stamina_Bar" type="ProgressBar" parent="UI" unique_id=1959593828]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 711.0
+offset_top = 496.0
+offset_right = -22.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 0.001
+show_percentage = false
