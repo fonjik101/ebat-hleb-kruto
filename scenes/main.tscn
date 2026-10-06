@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bftmuat7xum1n"]
+
+[ext_resource type="PackedScene" uid="uid://cj34ax3xqx8yq" path="res://player/player.tscn" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://006pxdpa34h3" path="res://resources/qwantani_moonrise_puresky_4k.hdr" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://cdeq48mdln74u" path="res://scripts/pickupable_item.gd" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://emclqvo85una" path="res://models/wheat.blend" id="4_jyhfs"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_57qmd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_57qmd"]
+panorama = ExtResource("2_0wfyh")
+energy_multiplier = 0.5
+
+[sub_resource type="Sky" id="Sky_sugp2"]
+sky_material = SubResource("PanoramaSkyMaterial_57qmd")
+
+[sub_resource type="Environment" id="Environment_g4v7s"]
+background_mode = 2
+sky = SubResource("Sky_sugp2")
+ambient_light_source = 3
+reflected_light_source = 2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_yseml"]
+height = 1.1
+
+[node name="main" type="Node3D" unique_id=1635461979]
+
+[node name="Player" parent="." unique_id=794518661 instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1054114779]
+transform = Transform3D(10, 0, 0, 0, 0.029, 0, 0, 0, 10, 0, -0.017554417, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=654955305]
+mesh = SubResource("BoxMesh_57qmd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=138528757]
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1235381088]
+environment = SubResource("Environment_g4v7s")
+
+[node name="Wheat" type="RigidBody3D" parent="." unique_id=1442427841 groups=["Interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8935027, -3.1878085)
+gravity_scale = 0.0
+script = ExtResource("3_sugp2")
+
+[node name="wheat" parent="Wheat" unique_id=105661440 instance=ExtResource("4_jyhfs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wheat" unique_id=993776417]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("CylinderShape3D_yseml")

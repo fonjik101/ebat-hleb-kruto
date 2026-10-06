@@ -54,6 +54,9 @@ enum CrouchMode { TOGGLE, HOLD }
 @export_group("Mouse Look")
 @export var mouse_sensitivity: float = 0.008
 @export var max_look_angle: float = 90.0
+
+@export_group("UI Settings")
+@export var ui_scale: float = 1.0
 # ----- NODE REFERENCES -----
 
 @onready var interactable_cursor: TextureRect = $UI/Cursor/Interactable_Cursor
@@ -63,6 +66,7 @@ enum CrouchMode { TOGGLE, HOLD }
 @onready var hit_ray: RayCast3D = $Camera_Pivot/Player_Camera/Hit_Ray
 @onready var test_label: Label = $UI/Position_Label
 @onready var stamina_bar: ProgressBar = $UI/Stamina_Bar
+@onready var cursor_control: Control = $UI/Cursor
 
 
 # ----- INTERNAL VARIABLES -----
@@ -96,6 +100,7 @@ var wall_normal: Vector3 = Vector3.ZERO
 var bobbing_time: float = 0.0
 #interaction
 var is_interacting: bool = false
+var held_item: Node3D = null
 
 # ----- INITIALIZATION -----
 
@@ -157,9 +162,12 @@ func _input(event: InputEvent) -> void:
 				else:
 					stop_crouch()
 
-# ----- MAIN LOOP -----
+# ----- MAIN LOOP -----a
 
 func _physics_process(delta: float) -> void:
+	# --- UI ---
+	cursor_control.scale = Vector2(ui_scale,ui_scale)
+	
 	# --- INTERACTABLES ---
 	if hit_ray.is_colliding():
 		var target = hit_ray.get_collider()

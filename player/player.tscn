@@ -13,8 +13,8 @@ script = ExtResource("1_rkbax")
 walk_speed = 3.0
 crouch_speed = 1.5
 sprint_speed = 6.0
-unlimited_sprint = false
 can_slide = false
+ui_scale = 0.2
 
 [node name="Body_Collision" type="CollisionShape3D" parent="." unique_id=1820892513]
 shape = SubResource("CapsuleShape3D_7i7bt")
@@ -31,7 +31,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 fov = 110.0
 
 [node name="Hit_Ray" type="RayCast3D" parent="Camera_Pivot/Player_Camera" unique_id=1291144089]
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -2)
+
+[node name="Item_Position" type="Marker3D" parent="Camera_Pivot/Player_Camera/Hit_Ray" unique_id=134249050]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
 [node name="UI" type="Control" parent="." unique_id=978617342]
 layout_mode = 3
@@ -55,6 +58,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
 
 [node name="Interactable_Cursor" type="TextureRect" parent="UI/Cursor" unique_id=471755937]
 texture_filter = 1
@@ -103,12 +107,13 @@ Y: 1337
 Z: 69"
 
 [node name="Stamina_Bar" type="ProgressBar" parent="UI" unique_id=1959593828]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 711.0
-offset_top = 496.0
+offset_left = 913.0
+offset_top = 602.0
 offset_right = -22.0
 offset_bottom = -18.0
 grow_horizontal = 2
